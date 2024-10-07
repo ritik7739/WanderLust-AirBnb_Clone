@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const PORT = 3000;
 const path = require("path");
+const dotenv=require("dotenv");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError=require("./utils/ExpressError.js");
@@ -16,6 +17,7 @@ const reviewsRouter=require("./routes/review.js");
 const listingsRouter=require("./routes/listing.js");
 const userRouter=require("./routes/user.js");
 
+dotenv.config();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -26,7 +28,7 @@ app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const MONGO_URL = process.env.MONGO_URI;
 
 main()
   .then(() => {

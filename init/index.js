@@ -1,8 +1,11 @@
 const mongoose=require("mongoose");
 const Listing=require("../models/listing.js");
+const dotenv=require("dotenv");
 const initData=require("./data.js");
+dotenv.config();
+console.log("MONGO_URI:", process.env.MONGO_URI);
 
-const MONGO_URL="mongodb://127.0.0.1:27017/wanderlust";
+const MONGO_URL = process.env.MONGO_URI;
 
 main().then(()=>{
     console.log("sucessfully connected to DB");
@@ -14,7 +17,7 @@ async function main() {
 };
 
 const initDB=async ()=>{
-    await Listing.deleteMany({});
+    // await Listing.deleteMany({});
     console.log("DataBase data  is deleted sucessfully");
     await Listing.insertMany(initData.data);
     console.log("Data was initialized");
