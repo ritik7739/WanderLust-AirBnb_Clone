@@ -26,6 +26,10 @@ let listingSchemas=new mongoose.Schema({
             ref:"Review",
         },
     ],
+    owner:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    }
 });
 
 //middleware for deleting reviews when/after deleting listing
