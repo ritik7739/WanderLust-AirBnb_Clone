@@ -1,9 +1,7 @@
 const express=require("express");
 //using for merge the routes with review routes
 const router=express.Router({ mergeParams: true });
-const {reviewSchema}=require("../Schema.js");
-const Listing = require("../models/listing.js");
-const ExpressError=require("../utils/ExpressError.js");
+const Listing = require("../models/listing.js");;
 const wrapAsync=require("../utils/wrapAsync.js");
 const Review = require("../models/review.js");
 const {validateReview,LoggedIn}=require("../middleware.js")

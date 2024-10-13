@@ -1,4 +1,7 @@
 const Listing=require("./models/listing")
+const {listingSchema,reviewSchema}=require("./Schema.js");
+const ExpressError=require("./utils/ExpressError.js");
+
 
 module.exports.validateReview=(req,res,next)=>{
     let {error}=reviewSchema.validate(req.body);
@@ -33,5 +36,16 @@ module.exports.isOwner=async (req,res,next)=>{
     if(!listing.owner.equals(res.locals.currUser._id)){
         req.flash("error","You're not the owner of this listing");
         return res.redirect(`/listings/${id}`);
+    }
+}
+
+//ValidateListing middleware
+module.exports.validateLisiting=(req,res,next)=>{
+    let {error}=listingSchema.validate(req.body);
+    if(error){
+      let errMsg=error.details.map((ele)=>ele.message).join(",");
+      throw new ExpressError(400,errMsg);
+    }else{
+      next();
     }
 }
