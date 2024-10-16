@@ -6,13 +6,15 @@ const passport=require("passport");
 const { saveRedirectUrl, LoggedIn }=require("../middleware.js");
 const userContoller = require("../contollers/users.js");
 
-router.get("/signup",userContoller.userSingupForm);
+//combining signup routes
+router.route("/signup")
+.get(userContoller.userSingupForm)
+.post(wrapAsync(userContoller.signup));
 
-router.post("/signup",wrapAsync(userContoller.signup));
-
-router.get("/login",userContoller.renderLoginForm);
-
-router.post("/login",saveRedirectUrl,
+//Combining login routes
+router.route("/login")
+.get(userContoller.renderLoginForm)
+.post(saveRedirectUrl,
     passport.authenticate("local",{ failureRedirect:'/login',failureFlash: true}),userContoller.Login);
 
 router.get("/logout",userContoller.Logout);
