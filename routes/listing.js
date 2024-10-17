@@ -3,11 +3,17 @@ const router=express.Router();
 const wrapAsync=require("../utils/wrapAsync.js");
 const {LoggedIn,isOwner,validateLisiting} =require("../middleware.js");
 const listingController=require("../contollers/listing.js");
+const multer  = require('multer');
+const upload = multer({ dest: 'uploads/' });
+
 
 //Combining index route(Index all data) and Create Route
 router.route("/")
 .get(wrapAsync(listingController.index))
-.post(validateLisiting,wrapAsync(listingController.createListing));
+// .post(LoggedIn,validateLisiting,wrapAsync(listingController.createListing));
+.post(upload.single('listing[image]'),(req,res)=>{
+    res.send(req.body);
+});
   
 //New Route
 router.get("/new", LoggedIn,listingController.renderNewForm);
