@@ -12,10 +12,8 @@ let listingSchemas=new mongoose.Schema({
         type:String,
     },
     image:{
-        type:String,
-        default:"https://unsplash.com/photos/a-bunch-of-different-colored-sprinkles-on-a-pink-background-QhDs9x7o9Jc",
-        set:(v)=> 
-            v === ""?"https://unsplash.com/photos/a-bunch-of-different-colored-sprinkles-on-a-pink-background-QhDs9x7o9Jc" : v,
+        url:String,
+        filename:String,
     },
     price:Number,
     location:String,

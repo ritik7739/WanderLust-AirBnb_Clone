@@ -37,6 +37,7 @@ module.exports.isOwner=async (req,res,next)=>{
         req.flash("error","You're not the owner of this listing");
         return res.redirect(`/listings/${id}`);
     }
+    next();
 }
 
 //ValidateListing middleware
